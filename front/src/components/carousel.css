@@ -1,0 +1,71 @@
+.main-carousel {
+  @media only screen and (max-width: 1024px) {
+    .slick-list {
+      width: 375px;
+      height: 300px;
+      z-index: 0;
+      outline: none;
+    }
+    .slick-arrow && slick-prev {
+      position: absolute;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .slick-list {
+      width: 445px;
+      height: 445px;
+      z-index: 0;
+      border-radius: 16px;
+      outline: none;
+    }
+    .slick-arrow && slick-prev {
+      position: absolute;
+    }
+    .slick-arrow && slick-next {
+      position: absolute;
+    }
+  }
+}
+
+.overlay-carousel {
+  @media only screen and (max-width: 500px) {
+    .slick-list {
+      width: 350px;
+      height: 400px;
+      z-index: 0;
+      outline: none;
+    }
+    .slick-arrow && slick-prev {
+      position: absolute;
+    }
+  }
+
+  @media only screen and (min-width: 500px) {
+    .slick-list {
+      width: 450px;
+      height: 500px;
+      z-index: 0;
+      outline: none;
+    }
+    .slick-arrow && slick-prev {
+      position: absolute;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .slick-list {
+      width: 550px;
+      height: 550px;
+      z-index: 0;
+      border-radius: 15px;
+      outline: none;
+    }
+    .slick-arrow && slick-prev {
+      position: absolute;
+    }
+    .slick-arrow && slick-next {
+      position: absolute;
+    }
+  }
+}

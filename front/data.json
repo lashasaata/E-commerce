@@ -1,0 +1,56 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "userName": "",
+      "cart": []
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category": "Women",
+      "company": "Sneaker Company",
+      "name": "Fall Limited Edition Sneakers",
+      "description": "These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer.",
+      "price": 250,
+      "discount": 0.5,
+      "images": {
+        "first": "/images/image-product-1.jpg",
+        "second": "/images/image-product-2.jpg",
+        "third": "/images/image-product-3.jpg",
+        "fourth": "/images/image-product-4.jpg"
+      }
+    },
+    {
+      "id": 2,
+      "category": "Men",
+      "company": "Sneaker Company",
+      "name": "ARCTERYX ACRUX LT GTX",
+      "description": "Precision, efficiency and focus - a mountaineer needs all three qualities. The same applies to his equipment. The design of the Acrux LT is made for exceptional precision when climbing and brings all these qualities with it.",
+      "price": 349,
+      "discount": 0.43,
+      "images": {
+        "first": "/images/f1bbbe1804565fc92771sneakers.jpg",
+        "second": "/images/snk.webp",
+        "third": "/images/sneakers.webp",
+        "fourth": "/images/kns.webp"
+      }
+    },
+    {
+      "id": 3,
+      "category": "Men",
+      "company": "Sneaker Company",
+      "name": "NIKE WMNS AIR JORDAN 6 RETRO *GTX*",
+      "description": " In keeping with the season, the Jordan Brand is now releasing the Air Jordan 6 with a Gore-Tex® membrane to keep feet dry in the wet months. The upper is in brown nubuck, with purple details rounding off the look.",
+      "price": 219,
+      "discount": 0.42,
+      "images": {
+        "first": "/images/snik0.jpg",
+        "second": "/images/snik1.jpg",
+        "third": "/images/snik2.webp",
+        "fourth": "/images/snik3.webp"
+      }
+    }
+  ]
+}
