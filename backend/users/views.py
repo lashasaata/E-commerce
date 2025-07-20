@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from .models import User
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 import jwt, datetime
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -11,7 +11,13 @@ from drf_yasg import openapi
 
 class RegisterView(APIView):
     @swagger_auto_schema(request_body=UserSerializer)
-    def post(self, request):   
+    def post(self, request):  
+        email = request.data['email']
+        user = User.objects.filter(email=email).first()
+
+        if user:
+            raise ValidationError('Email is already used!')
+
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -46,15 +52,12 @@ class LoginView(APIView):
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
             'message': 'Successful login',
-            'jtw': token
+            'jwt': token
         }
 
         return response
     
 class UserView(APIView):
-    # @swagger_auto_schema(manual_parameters=[
-    #     openapi.Parameter('jwt', openapi.IN_COOKIE, description="JWT token", type=openapi.TYPE_STRING),
-    # ])
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
