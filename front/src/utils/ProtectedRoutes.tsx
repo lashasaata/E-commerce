@@ -4,18 +4,25 @@ import { useContext } from "react";
 import NavBar from "../components/NavBar";
 
 const ProtectedRoutes = () => {
-  const { user } = useContext(Mycontext);
-  //   console.log(user);
+  const { isAuthenticated, loading } = useContext(Mycontext);
 
-  //    Object.keys(user).length > 0
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
-  return Object.keys(user).length > 0 ? (
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return (
     <>
       <NavBar />
       <Outlet />
     </>
-  ) : (
-    <Navigate to="/login" />
   );
 };
 

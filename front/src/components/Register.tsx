@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../services/auth";
+import { loginUser, registerUser } from "../services/auth";
 
 interface RegisterProps {
   onToggleMode: () => void;
@@ -26,14 +26,16 @@ export function Register() {
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!formData.firstName.trim()) {
+    if (!formData.firstName) {
       newErrors.firstName = "First name is required";
-    } else if (formData.firstName.trim().length < 2) {
+    } else if (formData.firstName.length < 2) {
       newErrors.firstName = "At least 2 characters";
     }
 
-    if (!formData.lastName.trim()) {
+    if (!formData.lastName) {
       newErrors.lastName = "Last name is required";
+    } else if (formData.lastName.length < 2) {
+      newErrors.lastName = "At least 2 characters";
     }
 
     if (!formData.email) {
@@ -85,14 +87,15 @@ export function Register() {
 
     setIsLoading(true);
 
-    // Simulate API call
-    try {
-      registerUser(modData);
-      setIsLoading(false);
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
+    const result = await registerUser(modData);
+    setIsLoading(false);
+
+    if (result == "Email is already used!") {
+      setErrors({ email: result });
+      return;
     }
+
+    navigate("/login");
   };
 
   const handleGoogleSignup = () => {
@@ -188,7 +191,7 @@ export function Register() {
                   placeholder="John"
                   value={formData.firstName}
                   onChange={(e) =>
-                    handleInputChange("firstName", e.target.value)
+                    handleInputChange("firstName", e.target.value.trim())
                   }
                   className={`w-full pl-10 pr-4 py-2.5 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-transparent text-base sm:text-sm ${
                     errors.firstName ? "border-[#ef4444]" : "border-[#d1d5db]"
@@ -212,7 +215,9 @@ export function Register() {
                 type="text"
                 placeholder="Doe"
                 value={formData.lastName}
-                onChange={(e) => handleInputChange("lastName", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("lastName", e.target.value.trim())
+                }
                 className={`w-full px-4 py-2.5 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-transparent text-base sm:text-sm ${
                   errors.lastName ? "border-[#ef4444]" : "border-[#d1d5db]"
                 }`}
@@ -250,7 +255,9 @@ export function Register() {
                 type="email"
                 placeholder="john.doe@example.com"
                 value={formData.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("email", e.target.value.trim())
+                }
                 className={`w-full pl-10 pr-4 py-2.5 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-transparent text-base sm:text-sm ${
                   errors.email ? "border-[#ef4444]" : "border-[#d1d5db]"
                 }`}
@@ -275,7 +282,9 @@ export function Register() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a strong password"
                 value={formData.password}
-                onChange={(e) => handleInputChange("password", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("password", e.target.value.trim())
+                }
                 className={`w-full pr-10 pl-4 py-2.5 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-transparent text-base sm:text-sm ${
                   errors.password ? "border-[#ef4444]" : "border-[#d1d5db]"
                 }`}
@@ -342,7 +351,7 @@ export function Register() {
                 placeholder="Confirm your password"
                 value={formData.confirmPassword}
                 onChange={(e) =>
-                  handleInputChange("confirmPassword", e.target.value)
+                  handleInputChange("confirmPassword", e.target.value.trim())
                 }
                 className={`w-full pr-10 pl-4 py-2.5 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-transparent text-base sm:text-sm ${
                   errors.confirmPassword

@@ -215,6 +215,15 @@ function NavBar() {
         </nav>
       </div>
       <div className="flex items-center gap-[22px] lg:gap-[46px] relative">
+        <span>name: {context.user.name}</span>
+        <button
+          onClick={() => {
+            context.setIsAuthenticated(false);
+            logOut();
+          }}
+        >
+          Logout
+        </button>
         <div className="relative">
           <svg
             onClick={handleList}
@@ -247,7 +256,6 @@ function NavBar() {
           src="/images/image-avatar.png"
           alt="avatar"
           onClick={() => {
-            logOut();
             context.navigate("/login");
           }}
           className="w-6 lg:w-[50px] h-6 lg:h-[50px] rounded-full hover:cursor-pointer hover:border-2 hover:border-solid hover:border-[#ff7e1b]"

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loginUser } from "../services/auth";
+import { getUser, loginUser } from "../services/auth";
 import { Mycontext } from "../App";
 import { useContext } from "react";
 
@@ -19,7 +19,7 @@ export function Login() {
     {}
   );
 
-  const { isAuthenticated, setIsAuthenticated, navigate } =
+  const { isAuthenticated, setIsAuthenticated, navigate, setUser } =
     useContext(Mycontext);
 
   console.log(isAuthenticated);
@@ -55,9 +55,9 @@ export function Login() {
 
     setIsLoading(true);
     const result = await loginUser(formData);
+    console.log(result);
     setIsLoading(false);
-
-    if (result.detail == "User not found") {
+    if (result.detail == "Invalid email") {
       setErrors({ email: result.detail });
       return;
     } else if (result.detail == "Incorrect password") {
@@ -65,8 +65,11 @@ export function Login() {
       return;
     }
 
+    const userData = await getUser();
+    localStorage.setItem("user", userData);
     setIsAuthenticated(true);
-    navigate("/");
+
+    // navigate("/");
   };
 
   const handleGoogleLogin = () => {
